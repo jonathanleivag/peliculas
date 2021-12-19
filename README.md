@@ -1,16 +1,13 @@
-# peliculas
+# Películas
 
-A new Flutter project.
+<img src="./Simulator Screen Recording - iPhone 13 - 2021-12-19 at 04.30.21.gif">
+<img src="./Simulator Screen Shot - iPhone 13 - 2021-12-19 at 04.39.45.png">
 
-## Getting Started
+Es una aplicación para ver información de películas recientes
 
-This project is a starting point for a Flutter application.
+- [themoviedb](https://www.themoviedb.org/)
+- [Flutter](https://flutter.dev/)
 
-A few resources to get you started if this is your first Flutter project:
+# License
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Free Software, Hell Yeah!
