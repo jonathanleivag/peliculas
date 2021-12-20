@@ -1,3 +1,4 @@
+import 'package:age_calculator/age_calculator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -196,6 +197,21 @@ class _CastCard extends StatelessWidget {
   }
 
   Column _name(Actor data) {
+    List<String>? birthday =
+        data.birthday != null ? data.birthday?.split('-') : [];
+    String age = '';
+    String dateBirthDay = '??/??/????';
+
+    if (birthday!.isNotEmpty) {
+      DateDuration duration = AgeCalculator.age(DateTime(
+        int.parse(birthday[0]),
+        int.parse(birthday[1]),
+        int.parse(birthday[2]),
+      ));
+      age = '${duration.years} años';
+      dateBirthDay = '${birthday[2]}/${birthday[1]}/${birthday[0]}';
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -207,11 +223,12 @@ class _CastCard extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
         ),
         Text(
-          data.birthday ?? '',
+          dateBirthDay,
           style: const TextStyle(
             fontSize: 20,
           ),
         ),
+        Text(age),
         Row(
           children: [
             const Icon(
