@@ -18,7 +18,8 @@ class MovieProvider extends ChangeNotifier {
   List<Movies> moviePopular = [];
   int _page = 0;
   bool _isLoading = true;
-  Map<int, List<Cast>> movieCast = {};
+  Map<int, List<Person>> movieCast = {};
+  Map<int, List<Person>> movieCrew = {};
 
   final debouncer = Debouncer(
     duration: const Duration(
@@ -69,12 +70,20 @@ class MovieProvider extends ChangeNotifier {
     }
   }
 
-  Future<List<Cast>> getMovieCast(movieId) async {
+  Future<List<Person>> getMovieCast(movieId) async {
     if (movieCast.containsKey(movieId)) return movieCast[movieId]!;
     final getJsonData = await _getJsonData('movie/$movieId/credits');
     final data = CreditsResponse.fromJson(getJsonData);
     movieCast[movieId] = data.cast;
     return data.cast;
+  }
+
+  Future<List<Person>> getMovieCrew(movieId) async {
+    if (movieCrew.containsKey(movieId)) return movieCrew[movieId]!;
+    final getJsonData = await _getJsonData('movie/$movieId/credits');
+    final data = CreditsResponse.fromJson(getJsonData);
+    movieCast[movieId] = data.cast;
+    return data.crew;
   }
 
   Future<List<Movies>> searchMovies(String query) async {

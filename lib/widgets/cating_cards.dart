@@ -1,52 +1,71 @@
 import 'package:flutter/cupertino.dart';
 import 'package:peliculas/models/model.dart';
-import 'package:peliculas/providers/movie_provider.dart';
-import 'package:provider/provider.dart';
 
 class CastingCards extends StatelessWidget {
-  final int movieId;
+  final String title;
+  final Future<List<Person>> getData;
 
   const CastingCards({
     Key? key,
-    required this.movieId,
+    required this.title,
+    required this.getData,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final MovieProvider movieProvider = Provider.of<MovieProvider>(context);
-
-    return FutureBuilder(
-      future: movieProvider.getMovieCast(movieId),
-      builder: (context, AsyncSnapshot<List<Cast>> snapshot) {
-        if (!snapshot.hasData) {
-          return Container(
-            constraints: const BoxConstraints(maxHeight: 150),
-            height: 180,
-            child: const CupertinoActivityIndicator(),
-          );
-        }
-
-        final List<Cast> cast = snapshot.data!;
-
-        return Container(
-          width: double.infinity,
-          height: 180,
-          margin: const EdgeInsets.only(bottom: 30),
-          child: ListView.builder(
-            itemCount: cast.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (_, int index) => _CastCard(
-              cast: cast[index],
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 20,
+            bottom: 10,
           ),
-        );
-      },
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 20,
+            ),
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.start,
+          ),
+        ),
+        FutureBuilder(
+          future: getData,
+          builder: (context, AsyncSnapshot<List<Person>> snapshot) {
+            if (!snapshot.hasData) {
+              return Container(
+                constraints: const BoxConstraints(maxHeight: 150),
+                height: 180,
+                child: const CupertinoActivityIndicator(),
+              );
+            }
+
+            final List<Person> cast = snapshot.data!;
+
+            return Container(
+              width: double.infinity,
+              height: 180,
+              margin: const EdgeInsets.only(bottom: 30),
+              child: ListView.builder(
+                itemCount: cast.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (_, int index) => _CastCard(
+                  cast: cast[index],
+                ),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }
 
 class _CastCard extends StatelessWidget {
-  final Cast cast;
+  final Person cast;
 
   const _CastCard({
     Key? key,
