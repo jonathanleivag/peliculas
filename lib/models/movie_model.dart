@@ -32,6 +32,7 @@ class Movies {
   });
 
   String? heroId;
+
   get fullPosterImg {
     String img = 'https://i.stack.imgur.com/GNhxO.png';
 
@@ -60,7 +61,7 @@ class Movies {
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];
     overview = json['overview'];
-    popularity = json['popularity'];
+    popularity = json['popularity'].toDouble();
     posterPath = json['poster_path'];
     releaseDate = json['release_date'];
     title = json['title'];

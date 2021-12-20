@@ -20,6 +20,7 @@ class MovieProvider extends ChangeNotifier {
   bool _isLoading = true;
   Map<int, List<Person>> movieCast = {};
   Map<int, List<Person>> movieCrew = {};
+  Map<int, Actor> actor = {};
 
   final debouncer = Debouncer(
     duration: const Duration(
@@ -103,5 +104,11 @@ class MovieProvider extends ChangeNotifier {
     });
     Future.delayed(const Duration(milliseconds: 301))
         .then((_) => timer.cancel());
+  }
+
+  Future<Actor> getActor(String idActor) async {
+    final getJsonData = await _getJsonData('person/$idActor');
+    final data = Actor.fromJson(getJsonData);
+    return data;
   }
 }
