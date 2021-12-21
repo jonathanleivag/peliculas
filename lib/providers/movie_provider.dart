@@ -19,7 +19,10 @@ class MovieProvider extends ChangeNotifier {
   List<Movies> topMovie = [];
   List<Movies> upcomingMovie = [];
   int _page = 0;
-  bool _isLoading = true;
+  int _pageTop = 0;
+  int _pageUpcoming = 0;
+  int _pageRecommendations = 0;
+  int _pageSimilar = 0;
   Map<int, List<Person>> movieCast = {};
   Map<int, List<Person>> movieCrew = {};
   Map<int, Actor> actor = {};
@@ -64,15 +67,11 @@ class MovieProvider extends ChangeNotifier {
   }
 
   getOnDisplayMoviePopular() async {
-    if (_isLoading) {
-      _isLoading = false;
-      _page++;
-      final getJsonData = await _getJsonData('movie/popular', _page);
-      _isLoading = true;
-      final data = PopularResponse.fromJson(getJsonData);
-      moviePopular = [...moviePopular, ...data.results];
-      notifyListeners();
-    }
+    _page++;
+    final getJsonData = await _getJsonData('movie/popular', _page);
+    final data = PopularResponse.fromJson(getJsonData);
+    moviePopular = [...moviePopular, ...data.results];
+    notifyListeners();
   }
 
   Future<List<Person>> getMovieCast(movieId) async {
@@ -117,35 +116,32 @@ class MovieProvider extends ChangeNotifier {
   }
 
   Future<List<Movies>> getSimilar(idMovie) async {
-    _page++;
-    final getJsonData = await _getJsonData('movie/$idMovie/similar', _page);
-    _isLoading = true;
+    _pageSimilar++;
+    final getJsonData =
+        await _getJsonData('movie/$idMovie/similar', _pageSimilar);
     final data = PopularResponse.fromJson(getJsonData);
     return data.results;
   }
 
   Future<List<Movies>> getRecommendations(idMovie) async {
-    _page++;
-    final getJsonData =
-        await _getJsonData('/movie/$idMovie/recommendations', _page);
-    _isLoading = true;
+    _pageRecommendations++;
+    final getJsonData = await _getJsonData(
+        'movie/$idMovie/recommendations', _pageRecommendations);
     final data = PopularResponse.fromJson(getJsonData);
     return data.results;
   }
 
   getOnDisplayTopMovie() async {
-    _page++;
-    final getJsonData = await _getJsonData('movie/top_rated', _page);
-    _isLoading = true;
+    _pageTop++;
+    final getJsonData = await _getJsonData('movie/top_rated', _pageTop);
     final data = PopularResponse.fromJson(getJsonData);
     topMovie = [...topMovie, ...data.results];
     notifyListeners();
   }
 
   getOnDisplayUpcomingMovie() async {
-    _page++;
-    final getJsonData = await _getJsonData('movie/upcoming', _page);
-    _isLoading = true;
+    _pageUpcoming++;
+    final getJsonData = await _getJsonData('movie/upcoming', _pageUpcoming);
     final data = PopularResponse.fromJson(getJsonData);
     upcomingMovie = [...upcomingMovie, ...data.results];
     notifyListeners();
