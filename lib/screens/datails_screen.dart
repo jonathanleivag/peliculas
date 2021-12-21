@@ -41,7 +41,7 @@ class DetailsScreen extends StatelessWidget {
                     onNextPage: movieProvider.getSimilar,
                     title: 'Pelicualas similares',
                     idMovie: arg.id,
-                    msnEmptyMovies: 'No hay pelicuals similares para mostrar',
+                    msnEmptyMovies: 'No hay peliculas similares para mostrar',
                   );
                 }),
             FutureBuilder(
@@ -55,7 +55,7 @@ class DetailsScreen extends StatelessWidget {
                     title: 'Pelicualas recomendadas',
                     idMovie: arg.id,
                     msnEmptyMovies:
-                        'No hay pelicuals recomendadas para mostrar',
+                        'No hay peliculas recomendadas para mostrar',
                   );
                 })
           ]),

@@ -17,6 +17,7 @@ class MovieProvider extends ChangeNotifier {
   List<Movies> movie = [];
   List<Movies> moviePopular = [];
   List<Movies> topMovie = [];
+  List<Movies> upcomingMovie = [];
   int _page = 0;
   bool _isLoading = true;
   Map<int, List<Person>> movieCast = {};
@@ -38,6 +39,7 @@ class MovieProvider extends ChangeNotifier {
     getOnDisplayMovie();
     getOnDisplayMoviePopular();
     getOnDisplayTopMovie();
+    getOnDisplayUpcomingMovie();
   }
 
   Future<Map<String, dynamic>> _getJsonData(String path,
@@ -137,6 +139,15 @@ class MovieProvider extends ChangeNotifier {
     _isLoading = true;
     final data = PopularResponse.fromJson(getJsonData);
     topMovie = [...topMovie, ...data.results];
+    notifyListeners();
+  }
+
+  getOnDisplayUpcomingMovie() async {
+    _page++;
+    final getJsonData = await _getJsonData('movie/upcoming', _page);
+    _isLoading = true;
+    final data = PopularResponse.fromJson(getJsonData);
+    upcomingMovie = [...upcomingMovie, ...data.results];
     notifyListeners();
   }
 }
