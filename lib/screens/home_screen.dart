@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
             MovieSlider(
                 moviesPopular: movieProvider.moviePopular,
                 onNextPage: () => movieProvider.getOnDisplayMoviePopular(),
-                msnEmptyMovies: 'No hay peliculas populares para mostrar'),
+                msnEmptyMovies: 'No hay películas populares para mostrar'),
             const SizedBox(
               height: 15,
             ),
@@ -46,15 +46,15 @@ class HomeScreen extends StatelessWidget {
                 title: 'Peliculas top',
                 moviesPopular: movieProvider.topMovie,
                 onNextPage: () => movieProvider.getOnDisplayTopMovie(),
-                msnEmptyMovies: 'No hay peliculas top para mostrar'),
+                msnEmptyMovies: 'No hay películas top para mostrar'),
             const SizedBox(
               height: 15,
             ),
             MovieSlider(
-                title: 'Próximos estrenos cine',
+                title: 'Próximos estrenos en el cine',
                 moviesPopular: movieProvider.upcomingMovie,
                 onNextPage: () => movieProvider.getOnDisplayUpcomingMovie(),
-                msnEmptyMovies: 'No hay peliculas próximas para mostrar'),
+                msnEmptyMovies: 'No hay películas próximas para mostrar'),
             const SizedBox(
               height: 15,
             ),

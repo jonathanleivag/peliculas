@@ -54,7 +54,6 @@ class _MovieSliderState extends State<MovieSlider> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _title(),
           _empty(),
           _listPopulares(),
         ],
