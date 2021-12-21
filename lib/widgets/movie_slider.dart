@@ -50,7 +50,7 @@ class _MovieSliderState extends State<MovieSlider> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 290,
+      height: 300,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -162,7 +162,7 @@ class _Populares extends StatelessWidget {
               maxLines: 2,
               textAlign: TextAlign.center,
             ),
-          )
+          ),
         ],
       ),
     );
