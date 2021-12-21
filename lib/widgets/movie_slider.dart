@@ -5,12 +5,16 @@ class MovieSlider extends StatefulWidget {
   final List<Movies> moviesPopular;
   final String? title;
   final Function onNextPage;
+  final int? idMovie;
+  final String msnEmptyMovies;
 
   const MovieSlider({
     Key? key,
     required this.moviesPopular,
     this.title,
     required this.onNextPage,
+    this.idMovie,
+    required this.msnEmptyMovies,
   }) : super(key: key);
 
   @override
@@ -27,7 +31,11 @@ class _MovieSliderState extends State<MovieSlider> {
       final ScrollPosition position = scrollController.position;
 
       if (position.pixels >= position.maxScrollExtent - 500) {
-        widget.onNextPage();
+        if (widget.idMovie != null) {
+          widget.onNextPage(widget.idMovie);
+        } else {
+          widget.onNextPage();
+        }
       }
     });
   }
@@ -47,6 +55,7 @@ class _MovieSliderState extends State<MovieSlider> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _title(),
+          _empty(),
           _listPopulares(),
         ],
       ),
@@ -88,6 +97,19 @@ class _MovieSliderState extends State<MovieSlider> {
       ),
     );
   }
+
+  Padding _empty() => Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+        ),
+        child: Text(
+          widget.moviesPopular.isEmpty ? widget.msnEmptyMovies : '',
+          style: const TextStyle(fontSize: 20, color: Colors.red),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+        ),
+      );
 }
 
 class _Populares extends StatelessWidget {

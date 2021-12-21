@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:peliculas/models/model.dart';
 import 'package:peliculas/providers/movie_provider.dart';
+import 'package:peliculas/widgets/loading.dart';
 import 'package:peliculas/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -30,6 +31,33 @@ class DetailsScreen extends StatelessWidget {
               getData: movieProvider.getMovieCrew(arg.id),
               title: 'Equipo',
             ),
+            FutureBuilder(
+                future: MovieProvider().getSimilar(arg.id),
+                builder: (context, AsyncSnapshot<List<Movies>> snapshot) {
+                  if (!snapshot.hasData) return const Loading();
+                  List<Movies> data = snapshot.data as List<Movies>;
+                  return MovieSlider(
+                    moviesPopular: data,
+                    onNextPage: movieProvider.getSimilar,
+                    title: 'Pelicualas similares',
+                    idMovie: arg.id,
+                    msnEmptyMovies: 'No hay pelicuals similares para mostrar',
+                  );
+                }),
+            FutureBuilder(
+                future: MovieProvider().getRecommendations(arg.id),
+                builder: (context, AsyncSnapshot<List<Movies>> snapshot) {
+                  if (!snapshot.hasData) return const Loading();
+                  List<Movies> data = snapshot.data as List<Movies>;
+                  return MovieSlider(
+                    moviesPopular: data,
+                    onNextPage: movieProvider.getRecommendations,
+                    title: 'Pelicualas recomendadas',
+                    idMovie: arg.id,
+                    msnEmptyMovies:
+                        'No hay pelicuals recomendadas para mostrar',
+                  );
+                })
           ]),
         )
       ],

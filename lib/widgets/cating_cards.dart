@@ -1,9 +1,11 @@
 import 'package:age_calculator/age_calculator.dart';
+// ignore: unnecessary_import
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:peliculas/models/model.dart';
 import 'package:peliculas/providers/movie_provider.dart';
+import 'package:peliculas/widgets/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -41,7 +43,7 @@ class CastingCards extends StatelessWidget {
         FutureBuilder(
           future: getData,
           builder: (context, AsyncSnapshot<List<Person>> snapshot) {
-            if (!snapshot.hasData) return const _Loading();
+            if (!snapshot.hasData) return const Loading();
 
             final List<Person> cast = snapshot.data!;
 
@@ -60,21 +62,6 @@ class CastingCards extends StatelessWidget {
           },
         ),
       ],
-    );
-  }
-}
-
-class _Loading extends StatelessWidget {
-  const _Loading({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        constraints: const BoxConstraints(maxHeight: 150),
-        height: 180,
-        child: const CupertinoActivityIndicator(),
-      ),
     );
   }
 }
@@ -139,7 +126,7 @@ class _CastCard extends StatelessWidget {
         child: FutureBuilder(
           future: movieProvider.getActor(idActor),
           builder: (context, snapshot) {
-            if (!snapshot.hasData) return const _Loading();
+            if (!snapshot.hasData) return const Loading();
             final Actor data = snapshot.data as Actor;
             return Column(
               children: [

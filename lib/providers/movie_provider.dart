@@ -111,4 +111,21 @@ class MovieProvider extends ChangeNotifier {
     final data = Actor.fromJson(getJsonData);
     return data;
   }
+
+  Future<List<Movies>> getSimilar(idMovie) async {
+    _page++;
+    final getJsonData = await _getJsonData('/movie/$idMovie/similar', _page);
+    _isLoading = true;
+    final data = PopularResponse.fromJson(getJsonData);
+    return data.results;
+  }
+
+  Future<List<Movies>> getRecommendations(idMovie) async {
+    _page++;
+    final getJsonData =
+        await _getJsonData('/movie/$idMovie/recommendations', _page);
+    _isLoading = true;
+    final data = PopularResponse.fromJson(getJsonData);
+    return data.results;
+  }
 }
