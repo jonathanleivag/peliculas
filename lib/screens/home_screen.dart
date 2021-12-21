@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
               height: 15,
             ),
             MovieSlider(
-                title: 'Peliculas top',
+                title: 'Películas top',
                 moviesPopular: movieProvider.topMovie,
                 onNextPage: () => movieProvider.getOnDisplayTopMovie(),
                 msnEmptyMovies: 'No hay películas top para mostrar'),
